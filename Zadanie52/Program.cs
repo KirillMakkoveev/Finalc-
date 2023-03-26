@@ -1,12 +1,21 @@
-﻿int rows = ReadInt("Введите индекс строки: ");
-int colums = ReadInt("Введите индекс столбца: ");
-int[,] numbers = new int[6, 8];
+﻿int rows = 3;
+int colums = 4;
+int[,] numbers = new int[rows, colums];
 FillArray2D(numbers);
 PrintArray2D(numbers);
 
-if (rows < numbers.GetLength(0) && colums < numbers.GetLength(1)) Console.WriteLine(numbers[rows, colums]);
-else Console.WriteLine($"{rows}{colums} -> такого числа в массиве нет");
+double[] avgNumbers = new double[numbers.GetLength(1)];
 
+for (int i = 0; i < numbers.GetLength(1); i++)
+{
+    double result = 0.0;
+    for (int j = 0; j < numbers.GetLength(0); j++)
+    {
+        result += numbers[j, i];
+    }
+    avgNumbers[i] = result / numbers.GetLength(0);
+}
+PrintArray(avgNumbers);
 
 void FillArray2D(int[,] array)
 {
@@ -32,8 +41,11 @@ void PrintArray2D(int[,] array)
     Console.WriteLine();
 }
 
-int ReadInt(string message)
+void PrintArray(double[] array)
 {
-    Console.Write(message);
-    return Convert.ToInt32(Console.ReadLine());
+    for (int i = 0; i < array.Length; i++)
+    {
+        Console.Write(array[i] + " ");
+    }
+    Console.WriteLine();
 }
